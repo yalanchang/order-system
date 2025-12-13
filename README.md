@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 自助點餐收銀系統
 
-## Getting Started
+使用 **Next.js + React + MySQL** 開發的自助點餐系統
 
-First, run the development server:
+## 功能
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 現代化深色主題 UI
+- 響應式設計
+- 購物車（新增、修改、刪除）
+- 多元支付（現金、信用卡、LINE Pay）
+- 搜尋餐點
+- 分類瀏覽
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 技術架構
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| 類別 | 技術 |
+|------|------|
+| 前端 | Next.js 14, React 18, TypeScript |
+| 樣式 | Tailwind CSS, Framer Motion |
+| 資料庫 | MySQL + mysql2（原生 SQL） |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 專案結構
 
-## Learn More
+self-order-kiosk/
+├── app/
+│   ├── api/
+│   │   ├── categories/route.ts   # 分類 API
+│   │   ├── menu/route.ts         # 菜單 API
+│   │   └── orders/               # 訂單 API
+│   ├── order/page.tsx            # 點餐頁面
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx                  # 首頁
+├── lib/
+│   ├── db.ts                     # MySQL 連線
+│   ├── types.ts                  # 型別定義
+│   └── utils.ts                  # 工具函數
+├── sql/
+│   ├── create_tables.sql         # 建表 SQL
+│   └── seed_data.sql             # 測試資料
+├── .env.example
+└── package.json
 
-To learn more about Next.js, take a look at the following resources:
+API 端點
+分類
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+GET /api/categories - 取得所有分類
+POST /api/categories - 新增分類
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+菜單
 
-## Deploy on Vercel
+GET /api/menu - 取得菜單
+GET /api/menu?categoryId=1 - 依分類篩選
+GET /api/menu?search=雞 - 搜尋
+POST /api/menu - 新增餐點
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+訂單
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+GET /api/orders - 取得訂單列表
+POST /api/orders - 建立訂單
+GET /api/orders/[id] - 取得單一訂單
+PATCH /api/orders/[id] - 更新訂單狀態
+DELETE /api/orders/[id] - 刪除訂單
