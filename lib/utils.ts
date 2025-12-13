@@ -52,3 +52,5 @@ export function formatPrice(price: number): string {
     };
     return iconName ? iconMap[iconName] || '📋' : '📋';
   }
+
+  
